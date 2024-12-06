@@ -1,5 +1,5 @@
 const express = require('express')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const blogRoutes = require('./routes/blogRoutes'); // Import the blog routes
 
 const {
