@@ -2,7 +2,7 @@ const customerModel = require('../../models/customerModel')
 const { responseReturn } = require('../../utiles/response')
 const { createToken } = require('../../utiles/tokenCreate')
 const sellerCustomerModel = require('../../models/chat/sellerCustomerModel')
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 class customerAuthController {
     customer_register = async (req, res) => {
         const { name, email, password } = req.body
@@ -15,7 +15,7 @@ class customerAuthController {
                 const createCustomer = await customerModel.create({
                     name: name.trim(),
                     email: email.trim(),
-                    password: await bcrypt.hash(password, 10),
+                    password: await bcryptjs.hash(password, 10),
                     method: 'menualy'
                 })
                 await sellerCustomerModel.create({
@@ -42,7 +42,7 @@ class customerAuthController {
         try {
             const customer = await customerModel.findOne({ email }).select('+password')
             if (customer) {
-                const match = await bcrypt.compare(password, customer.password)
+                const match = await bcryptjs.compare(password, customer.password)
                 if (match) {
                     const token = await createToken({
                         id: customer.id,
