@@ -14,19 +14,19 @@ require('dotenv').config()
 const socket = require('socket.io')
 
 
-const server = http.createServer(app)
+const server = http.createServer(app);
 
 app.use(cors({
-    origin: ['https://marketpulse-api.onrender.com'],
+    origin: ['https://marketpulse-api.onrender.com'], // Match the frontend origin
     credentials: true
-}))
+}));
 
 const io = socket(server, {
     cors: {
-        origin: '*',
+        origin: ['https://marketpulse-api.onrender.com'], // Match CORS for socket.io
         credentials: true
     }
-})
+});
 
 
 var allCustomer = []
