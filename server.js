@@ -15,10 +15,10 @@ const server = http.createServer(app);
 
 // Enable CORS for Express
 app.use(cors({
-    origin: ['https://marketpulse-api.onrender.com'], // Frontend origin
+    origin: ['https://marketpulse-oxxa.onrender.com'], // Correct frontend origin
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Add additional headers
 }));
 
 // Enable JSON parsing, body parsing, and cookie parsing
@@ -29,12 +29,11 @@ app.use(cookieParser());
 // Initialize Socket.IO and enable CORS
 const io = socket(server, {
     cors: {
-        origin: ['https://marketpulse-api.onrender.com'], // Frontend origin
+        origin: ['https://marketpulse-oxxa.onrender.com'], // Correct frontend origin
         credentials: true,
-        methods: ['GET', 'POST'], // Allowed methods for WebSocket
+        methods: ['GET', 'POST'], // Adjust methods if necessary
     }
 });
-
 // Your other routes and logic here
 app.use('/blogs', blogRoutes); // Use the blog routes
 
@@ -178,6 +177,7 @@ app.use('/api', require('./routes/dashboard/productRoutes'))
 app.get('/', (req, res) => res.send('Hello World!'))
 const port = process.env.PORT
 dbConnect()
+
 server.listen(process.env.PORT || 3000, () => {
     console.log(`Server running on port ${process.env.PORT || 3000}`);
 });
