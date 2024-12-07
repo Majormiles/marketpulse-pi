@@ -17,7 +17,7 @@ const socket = require('socket.io')
 const server = http.createServer(app)
 
 app.use(cors({
-    origin: ['https://marketpulse-api.onrender.com/'],
+    origin: ['https://marketpulse-api.onrender.com'],
     credentials: true
 }))
 
