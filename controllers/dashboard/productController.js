@@ -28,7 +28,7 @@ class productController {
             });
             
             // Upload image to Cloudinary
-            cloudinary.uploader.upload('http://localhost:3000/images/products/${img}.jpg`', { folder: 'products' }, (error, result) => {
+            cloudinary.uploader.upload('https://marketpulse-oxxa.onrender.com/images/products/${img}.jpg`', { folder: 'products' }, (error, result) => {
                 if (error) {
                     console.error('Error uploading image:', error);
                 } else {
