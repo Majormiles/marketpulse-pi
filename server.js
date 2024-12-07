@@ -27,13 +27,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Initialize Socket.IO and enable CORS
-const io = socket(server, {
-    cors: {
-        origin: ['https://marketpulse-oxxa.onrender.com', 'https://dashboard-j33q.onrender.com'], // Correct frontend origin
-        credentials: true,
-        methods: ['GET', 'POST'], // Adjust methods if necessary
-    }
-});
+const allowedOrigins = ['https://marketpulse-oxxa.onrender.com', 'https://dashboard-j33q.onrender.com'];
+
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true, // Ensure credentials are included
+    methods: ['GET', 'POST'], // Adjust methods as needed
+}));
+
+
+
+
 // Your other routes and logic here
 app.use('/blogs', blogRoutes); // Use the blog routes
 
