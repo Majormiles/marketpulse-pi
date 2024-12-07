@@ -79,6 +79,8 @@ class paymentController {
         }
     }
 
+
+    
     sunAmount = (data) => {
         let sum = 0;
 
