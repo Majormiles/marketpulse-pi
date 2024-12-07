@@ -1,32 +1,45 @@
-const express = require('express')
+const express = require('express');
 const bcryptjs = require('bcryptjs');
 const blogRoutes = require('./routes/blogRoutes'); // Import the blog routes
 
-const {
-    dbConnect
-} = require('./utiles/db')
-const app = express()
-const cors = require('cors')
-const http = require('http')
-const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
-require('dotenv').config()
-const socket = require('socket.io')
-
+const { dbConnect } = require('./utiles/db');
+const app = express();
+const cors = require('cors');
+const http = require('http');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+require('dotenv').config();
+const socket = require('socket.io');
 
 const server = http.createServer(app);
 
+// Enable CORS for Express
 app.use(cors({
-    origin: ['https://marketpulse-api.onrender.com'], // Match the frontend origin
-    credentials: true
+    origin: ['https://marketpulse-api.onrender.com'], // Frontend origin
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 }));
 
+// Enable JSON parsing, body parsing, and cookie parsing
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// Initialize Socket.IO and enable CORS
 const io = socket(server, {
     cors: {
-        origin: ['https://marketpulse-api.onrender.com'], // Match CORS for socket.io
-        credentials: true
+        origin: ['https://marketpulse-api.onrender.com'], // Frontend origin
+        credentials: true,
+        methods: ['GET', 'POST'], // Allowed methods for WebSocket
     }
 });
+
+// Your other routes and logic here
+app.use('/blogs', blogRoutes); // Use the blog routes
+
+
+
 
 
 var allCustomer = []
@@ -165,4 +178,6 @@ app.use('/api', require('./routes/dashboard/productRoutes'))
 app.get('/', (req, res) => res.send('Hello World!'))
 const port = process.env.PORT
 dbConnect()
-server.listen(port, () => console.log(`Server is running on port ${port}!`))
+server.listen(process.env.PORT || 3000, () => {
+    console.log(`Server running on port ${process.env.PORT || 3000}`);
+});
