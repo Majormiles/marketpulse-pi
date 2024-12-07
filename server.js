@@ -13,24 +13,12 @@ const socket = require('socket.io');
 
 const server = http.createServer(app);
 
-// Define the allowed origins dynamically
-const allowedOrigins = [
-    'https://marketpulse-oxxa.onrender.com',
-    'https://dashboard-j33q.onrender.com',
-];
-
 // Enable CORS for Express
 app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: ['https://marketpulse-oxxa.onrender.com', 'https://dashboard-j33q.onrender.com'], // Correct frontend origin
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Add additional headers if needed
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Add additional headers
 }));
 
 // Enable JSON parsing, body parsing, and cookie parsing
@@ -41,13 +29,13 @@ app.use(cookieParser());
 // Initialize Socket.IO and enable CORS
 const io = socket(server, {
     cors: {
-        origin: allowedOrigins, // Dynamically allowed origins
+        origin: ['https://marketpulse-oxxa.onrender.com', 'https://dashboard-j33q.onrender.com'], // Correct frontend origin
         credentials: true,
         methods: ['GET', 'POST'], // Adjust methods if necessary
     }
 });
 
-// Your routes and other logic here...
+
 
 
 // Your other routes and logic here
