@@ -21,8 +21,8 @@ class paymentController {
 
                 const accountLink = await stripe.accountLinks.create({
                     account: account.id,
-                    refresh_url: 'https://marketpulse-api.onrender.com/refresh',
-                    return_url: `https://marketpulse-api.onrender.com/success?activeCode=${uid}`,
+                    refresh_url: 'https://marketpulse-oxxa.onrender.com/refresh',
+                    return_url: `https://marketpulse-oxxa.onrender.com/success?activeCode=${uid}`,
                     type: 'account_onboarding'
                 })
                 await striptModel.create({
