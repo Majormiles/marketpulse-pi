@@ -29,7 +29,7 @@ app.use(cookieParser());
 // Initialize Socket.IO and enable CORS
 const io = socket(server, {
     cors: {
-        origin: ['https://marketpulse-oxxa.onrender.com'], // Correct frontend origin
+        origin: ['https://marketpulse-oxxa.onrender.com', 'https://dashboard-j33q.onrender.com'], // Correct frontend origin
         credentials: true,
         methods: ['GET', 'POST'], // Adjust methods if necessary
     }
